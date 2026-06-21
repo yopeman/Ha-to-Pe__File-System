@@ -25,8 +25,8 @@
 3. owner_id
 4. name
 5. type:
-   1. FILE
-   2. DIR
+   1. DIRECTORY
+   2. FILE
    3. ZIP
 6. visibility:
    1. PRIVATE
@@ -50,31 +50,42 @@
 6. created_by
 7. created_at
 
+### DirectoryGroups
+1. id
+2. creator_id
+3. group_name
+4. permissions (lists):
+   1. list
+   2. read_metadata
+   3. create_file
+   4. create_directory
+   5. rename
+   6. move
+   7. copy
+   8. delete
+   9. restore
+   10. purge
+   11. download
+   12. zip
+   13. share
+   14. change_visibility
+   15. manage_permissions
+   16. change_owner
+
 ### Shares
 1. id
-2. node_id
-3. user_id
-4. created_at
+2. user_id
+3. node_id
+4. group_id
+5. created_at
+6. updated_at
 
-### DirectoryPermissions
+### Publics
 1. id
-2. permission id
-3. list
-4. read metadata
-5. create file
-6. create directory
-7. rename
-8. move
-9. copy
-10. delete
-11. restore
-12. purge
-13. download
-14. zip
-15. share
-16. change visibility
-17. manage permissions
-18. change owner
+2. node_id
+3. group_id
+4. created_at
+5. updated_at
 
 ### Invitations
 1. id
