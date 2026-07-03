@@ -7,20 +7,9 @@ mutation = MutationType()
 
 @query.field("me")
 def resolve_me(_, info):
-    if 'user' not in info.context:
+    if 'current_user' not in info.context:
         raise Exception("User Not Found")
-
-    print(
-        '\n\n\n',
-        '='*72,
-        '\n\n\n',
-        info.context,
-        '\n\n\n',
-        '='*72,
-        '\n\n\n',
-    )
-
-    return info.context['user']
+    return info.context['current_user']
 
 @mutation.field("signup")
 def resolve_signup(_, info, input):

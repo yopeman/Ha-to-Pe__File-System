@@ -9,26 +9,22 @@ from models import db
 
 class AuthService:
     def signup(self, username, email, password):
-        print(0)
         user = db.query(User).filter(
             User.email == email,
             User.deleted_at is not None,
         ).first()
-        print(1)
 
         if user:
             raise Exception("User already exists")
-        print(2)
 
         user = User(
             username=username,
             email=email,
             password=self.hash_password(password)
         )
-        print(3)
+        
         db.add(user)
         db.commit()
-        print(4)
 
         return {
             'user': user,
@@ -81,13 +77,13 @@ class AuthService:
         payload = jwt.decode(
             token,
             settings.secret_key,
-            algorithm='HS256'
+            algorithms=['HS256']
         )
 
         user = db.query(User).filter(
             User.id == payload['id'],
             User.deleted_at is not None,
-        )
+        ).first()
 
         if not user:
             raise Exception("User does not exist")
