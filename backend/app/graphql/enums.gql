@@ -1,0 +1,31 @@
+enum UserRole {
+    USER
+    ADMIN
+}
+
+enum NodeType {
+    DIRECTORY
+    FILE
+    ZIP
+}
+
+enum NodeVisibility {
+    PRIVATE
+    SHARED
+    PUBLIC
+}
+
+enum InvitationStatus {
+    PENDING
+    ACCEPTED
+    DECLINED
+    CANCELLED
+    EXPIRED
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    CANCELED
+    FAILED
+}

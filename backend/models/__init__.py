@@ -8,4 +8,4 @@ engine = create_engine(settings.db_url)
 
 Base = declarative_base()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-session = SessionLocal()
+db = SessionLocal()

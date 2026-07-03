@@ -13,7 +13,7 @@ class FileVersions(Base):
     version_number = Column(Integer, nullable=False)
     storage_path = Column(String, nullable=False)
     size = Column(Integer, nullable=False)
-    created_by = Column(String, ForeignKey("users.id"), nullable=False)
+    creator_id = Column(String, ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = Column(DateTime)

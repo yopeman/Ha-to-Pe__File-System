@@ -1,0 +1,27 @@
+type Mutation {
+    _: String
+    signup(input: SignupInput): OAuthResponse!
+    login(input: LoginInput): OAuthResponse!
+#    update_my_profile
+#    delete_account
+#
+#    create_node
+#    zip_nodes
+#    unzip
+#    share_dir
+#    update_node_visibility
+#    delete_node
+#    delete_nodes
+#    purge_node
+#    restore_node
+#    write_file
+#    copy_node
+#    move_node
+#    rename_node
+#    create_group
+#    update_group
+#    delete_group
+#    hide_node
+#    make_payment
+#    update_settings
+}

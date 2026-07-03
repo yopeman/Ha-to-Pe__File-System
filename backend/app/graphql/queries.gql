@@ -1,0 +1,16 @@
+type Query {
+    _: String
+    me: User!
+#    read_file
+#    list_dir
+#    get_node
+#    search_node
+#    my_profile
+#    my_root_node
+#    my_groups
+#    dir_activity_logs
+#    node_versions
+#    my_storages
+#    my_payment_histories
+#    get_current_settings
+}

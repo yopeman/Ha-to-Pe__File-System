@@ -1,3 +1,83 @@
+enum UserRole {
+    USER
+    ADMIN
+}
+
+enum NodeType {
+    DIRECTORY
+    FILE
+    ZIP
+}
+
+enum NodeVisibility {
+    PRIVATE
+    SHARED
+    PUBLIC
+}
+
+enum InvitationStatus {
+    PENDING
+    ACCEPTED
+    DECLINED
+    CANCELLED
+    EXPIRED
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    CANCELED
+    FAILED
+}
+
+type Query {
+    _: String
+    me: User!
+#    read_file
+#    list_dir
+#    get_node
+#    search_node
+#    my_profile
+#    my_root_node
+#    my_groups
+#    dir_activity_logs
+#    node_versions
+#    my_storages
+#    my_payment_histories
+#    get_current_settings
+}
+
+type Mutation {
+    _: String
+    signup(input: SignupInput): OAuthResponse!
+    login(input: LoginInput): OAuthResponse!
+#    update_my_profile
+#    delete_account
+#
+#    create_node
+#    zip_nodes
+#    unzip
+#    share_dir
+#    update_node_visibility
+#    delete_node
+#    delete_nodes
+#    purge_node
+#    restore_node
+#    write_file
+#    copy_node
+#    move_node
+#    rename_node
+#    create_group
+#    update_group
+#    delete_group
+#    hide_node
+#    make_payment
+#    update_settings
+}
+
+scalar DateTime
+scalar JSON
+
 type User {
     id: String!
     username: String!
@@ -128,4 +208,19 @@ type OAuthResponse {
     user: User!
     access_token: String!
     refresh_token: String!
+}
+
+type Subscription {
+    _: String
+}
+
+input SignupInput {
+    username: String!
+    email: String!
+    password: String!
+}
+
+input LoginInput {
+    email: String!
+    password: String!
 }

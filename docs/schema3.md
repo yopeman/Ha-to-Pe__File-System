@@ -27,13 +27,13 @@
 ### Nodes
 1. id (PK) NOT NULL
 2. parent_id (FK) (nullable – root nodes)
-3. owner_id (FK) NOT NULL
+3. owner_id (FK)
 4. name NOT NULL
 5. type [DIRECTORY, FILE, ZIP] NOT NULL (ENUM)
 6. visibility [PRIVATE, SHARED, PUBLIC] NOT NULL (default 'PRIVATE')
-7. is_hidden NOT NULL (default false)
-8. created_at NOT NULL
-9. updated_at NOT NULL
+7. created_at NOT NULL
+8. updated_at NOT NULL
+9. hidden_at (nullable)
 10. trashed_at (nullable)
 11. deleted_at (nullable)
 
@@ -45,7 +45,7 @@
 3. version_number NOT NULL
 4. storage_path NOT NULL
 5. size NOT NULL
-6. created_by (FK) NOT NULL
+6. creator_id (FK) NOT NULL
 7. created_at NOT NULL
 8. deleted_at (nullable)
 
@@ -54,7 +54,7 @@
 ### Groups
 1. id (PK) NOT NULL
 2. name NOT NULL
-3. created_by (FK) NOT NULL
+3. creator_id (FK) NOT NULL
 4. created_at NOT NULL
 5. updated_at NOT NULL
 6. deleted_at (nullable)
@@ -85,27 +85,17 @@
 
 **Unique constraints:** `(group_id)` – one permission set per group
 
-### Invitations
-1. id (PK) NOT NULL
-2. node_id (FK) NOT NULL
-3. invited_by (FK) NOT NULL
-4. invited_user (FK) NOT NULL
-5. status [PENDING, ACCEPTED, DECLINED, EXPIRED] NOT NULL (default 'PENDING')
-6. created_at NOT NULL
-7. updated_at NOT NULL
-8. expires_at NOT NULL
-9. accepted_at (nullable)
-
-**Unique constraints:** `(node_id, invited_user, status)` with `status = 'PENDING'` (partial unique index)
-
 ### Shares
 1. id (PK) NOT NULL
 2. user_id (FK) (nullable – either user_id or group_id must be set)
 3. node_id (FK) NOT NULL
 4. group_id (FK) (nullable)
-5. created_at NOT NULL
-6. updated_at NOT NULL
-7. deleted_at (nullable)
+5. status [PENDING, ACCEPTED, DECLINED, CANCELLED, EXPIRED] NOT NULL (default 'PENDING')
+6. created_at NOT NULL
+7. updated_at NOT NULL
+8. expired_at NOT NULL
+9. accepted_at (nullable)
+10. deleted_at (nullable)
 
 **Unique constraints:** Application logic ensures no duplicate active shares; optional partial index `(node_id, user_id)` where `user_id IS NOT NULL AND deleted_at IS NULL`
 

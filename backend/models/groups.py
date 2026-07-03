@@ -10,7 +10,7 @@ class Groups(Base):
     __tablename__ = "groups"
     id = Column(String, primary_key=True, default=uuid.uuid4)
     name = Column(String, nullable=False)
-    created_by = Column(String, ForeignKey("users.id"), nullable=False)
+    creator_id = Column(String, ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = Column(DateTime)
