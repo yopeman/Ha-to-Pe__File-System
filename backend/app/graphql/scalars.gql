@@ -1,0 +1,224 @@
+enum UserRole {
+    USER
+    ADMIN
+}
+
+scalar DateTime
+
+type User {
+    id: String!
+    username: String!
+    email: String!
+    role: UserRole!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+type OAuthAccount {
+    id: String!
+    user_id: String!
+    provider: String!
+    provider_user_id: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum NodeType {
+    DIRECTORY
+    FILE
+    ZIP
+}
+
+enum NodeVisibility {
+    PRIVATE
+    SHARED
+    PUBLIC
+}
+type Node {
+    id: String!
+    parent_id: String!
+    owner_id: String
+    name: String!
+    type:NodeType!
+    visibility: NodeVisibility!
+    created_at: DateTime!
+    updated_at: DateTime!
+    hidden_at: DateTime
+    trashed_at: DateTime
+    deleted_at: DateTime
+}
+
+type FileVersions {
+    id: String!
+    node_id: String!
+    version_number: Int!
+    storage_path: String!
+    size: Int!
+    creator_id: String!
+    created_at: DateTime!
+    deleted_at: DateTime
+}
+
+type Group {
+    id: String!
+    name: String!
+    creator_id: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+type Permission {
+    id: String!
+    group_id: String!
+    list: Boolean!
+    read_metadata: Boolean!
+    create_file: Boolean!
+    create_directory: Boolean!
+    rename: Boolean!
+    move: Boolean!
+    copy: Boolean!
+    delete: Boolean!
+    restore: Boolean!
+    purge: Boolean!
+    download: Boolean!
+    zip: Boolean!
+    share: Boolean!
+    change_visibility: Boolean!
+    manage_permissions: Boolean!
+    change_owner: Boolean!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum InvitationStatus {
+    PENDING
+    ACCEPTED
+    DECLINED
+    CANCELLED
+    EXPIRED
+}
+
+type Invitation {
+    id: String!
+    node_id: String!
+    invitor_id: String!
+    invited_id: String!
+    status: InvitationStatus!
+    created_at: DateTime!
+    updated_at: DateTime!
+    expired_at: DateTime!
+    accepted_at: DateTime
+}
+
+type Share {
+    id: String!
+    user_id: String!
+    node_id: String!
+    group_id: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+scalar JSON
+
+type ActivityLog {
+    id: String!
+    user_id: String!
+    node_id: String!
+    action: String!
+    metadata: JSON
+    created_at: DateTime!
+}
+
+type UserStorage {
+    id: String!
+    user_id: String!
+    used_bytes: Int!
+    quota_bytes: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    CANCELED
+    FAILED
+}
+
+type Payment {
+    id: String!
+    user_id: String!
+    amount: Float!
+    currency: String!
+    status: PaymentStatus!
+    transaction_id: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    paid_at: DateTime
+}
+
+type Setting {
+    free_storage_gb: Int!
+    price_per_gb: Int!
+    trash_retention_days: Int!
+    created_at: DateTime!
+}
+
+type Query {
+    _: String
+}
+
+input SignupInput {
+    username: String!
+    email: String!
+    password: String!
+}
+
+input LoginInput {
+    email: String!
+    password: String!
+}
+
+type OAuthResponse {
+    user: User!
+    token: String!
+    refresh: String!
+}
+
+#input
+
+type Mutation {
+    _: String
+    signup(input: SignupInput): OAuthResponse!
+    login(input: LoginInput): OAuthResponse!
+
+    create_node
+    zip_nodes
+    unzip
+    share_node
+    update_node_visibility
+    delete_node
+    delete_nodes
+    purge_node
+    restore_node
+    write_file
+    read_file
+    list_dir
+    get_node
+    search_node
+    copy_node
+    move_node
+    rename_node
+    create_group
+    update_group
+    delete_group
+    invite_dir
+}
+
+type Subscription {
+    _: String
+}
