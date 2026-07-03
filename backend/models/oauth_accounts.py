@@ -8,7 +8,7 @@ from models import Base
 
 class OAuthAccount(Base):
     __tablename__ = "oauth_accounts"
-    id = Column(String, primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = Column(String, ForeignKey("users.id"), nullable=False)
     provider = Column(String, nullable=False)
     provider_user_id = Column(String, nullable=False)

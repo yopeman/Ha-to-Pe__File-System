@@ -8,7 +8,7 @@ from models import Base
 
 class FileVersions(Base):
     __tablename__ = "file_versions"
-    id = Column(String, primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     node_id = Column(String, ForeignKey("nodes.id"), nullable=False)
     version_number = Column(Integer, nullable=False)
     storage_path = Column(String, nullable=False)

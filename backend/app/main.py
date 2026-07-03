@@ -1,12 +1,15 @@
-from ariadne import make_executable_schema
+from ariadne import make_executable_schema, ScalarType
 from ariadne.asgi import GraphQL
 from ariadne.asgi.handlers import GraphQLTransportWSHandler
 from broadcaster import Broadcast
 from fastapi import FastAPI, Request
 
 from app.graphql import type_defs
+from app.resolvers.types.users import user_type
 from models import engine, Base, db
 from services.auth import auth_service
+
+from app.resolvers.auth import query as auth_query, mutation as auth_mutation
 
 Base.metadata.create_all(bind=engine)
 
@@ -16,7 +19,21 @@ app = FastAPI(
     version="1.0.0",
 )
 
-bindables = []
+datetime_scalar = ScalarType("DateTime")
+@datetime_scalar.serializer
+def serialize_datetime(value):
+    if value is None:
+        return None
+    return value.isoformat()
+
+
+bindables = [
+    auth_query,
+    auth_mutation,
+    user_type,
+    datetime_scalar,
+]
+
 schema = make_executable_schema(type_defs, *bindables)
 broadcast = Broadcast("memory://")
 

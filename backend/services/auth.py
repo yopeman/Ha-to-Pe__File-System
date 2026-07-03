@@ -9,21 +9,27 @@ from models import db
 
 class AuthService:
     def signup(self, username, email, password):
+        print(0)
         user = db.query(User).filter(
             User.email == email,
-            User.deleted_at is None,
-        ).one()
+            User.deleted_at is not None,
+        ).first()
+        print(1)
 
         if user:
             raise Exception("User already exists")
+        print(2)
 
         user = User(
             username=username,
             email=email,
             password=self.hash_password(password)
         )
+        print(3)
         db.add(user)
         db.commit()
+        print(4)
+
         return {
             'user': user,
             'access_token': self.generate_token(user, 7),
@@ -34,7 +40,7 @@ class AuthService:
         user = db.query(User).filter(
             User.email == email,
             User.deleted_at is not None,
-        )
+        ).first()
 
         if not user:
             raise Exception("User does not exist")
@@ -57,10 +63,16 @@ class AuthService:
         return bcrypt.checkpw(password_attempt.encode("utf-8"), stored_hash)
 
     def generate_token(self, user: User, expires_in_day):
-        payload = user.to_dict()
-        payload['exp'] = datetime.datetime.now(datetime.UTC) + datetime.timedelta(days=expires_in_day)
+        payload = {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email,
+            'role': user.role.name,
+            'exp': datetime.datetime.now(datetime.UTC) + datetime.timedelta(days=expires_in_day)
+        }
+
         return jwt.encode(
-            user.to_dict(),
+            payload,
             settings.secret_key,
             algorithm='HS256'
         )

@@ -32,7 +32,7 @@ enum PaymentStatus {
 
 type Query {
     _: String
-    me: User!
+    me: User
 #    read_file
 #    list_dir
 #    get_node

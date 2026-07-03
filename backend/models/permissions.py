@@ -8,7 +8,7 @@ from models import Base
 
 class Permissions(Base):
     __tablename__ = 'permissions'
-    id = Column(String, primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     group_id = Column(String, ForeignKey('groups.id'), nullable=False, unique=True)
     list = Column(Boolean, nullable=False, default=False)
     read = Column(Boolean, nullable=False, default=False)

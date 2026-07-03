@@ -16,7 +16,7 @@ class InvitationStatus(enum.Enum):
 
 class Shares(Base):
     __tablename__ = 'shares'
-    id = Column(String, primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = Column(String, ForeignKey('users.id'))
     node_id = Column(String, ForeignKey('nodes.id'), nullable=False)
     group_id = Column(String, ForeignKey('groups.id'), nullable=False)

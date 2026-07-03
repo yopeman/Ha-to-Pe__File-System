@@ -16,7 +16,7 @@ class PaymentStatus(enum.Enum):
 
 class Payments(Base):
     __tablename__ = "payments"
-    id = Column(String, primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     user_id = Column(String, ForeignKey("users.id"), nullable=False)
     amount = Column(Float, nullable=False)
     currency = Column(String, nullable=False)

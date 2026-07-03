@@ -19,7 +19,7 @@ class NodeVisibilities(enum.Enum):
 
 class Nodes(Base):
     __tablename__ = "nodes"
-    id = Column(String, primary_key=True, default=uuid.uuid4)
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     parent_id = Column(String, ForeignKey("nodes.id"))
     owner_id = Column(String, ForeignKey("users.id"))
     name = Column(String, nullable=False)
