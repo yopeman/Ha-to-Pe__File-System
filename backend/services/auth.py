@@ -82,7 +82,7 @@ class AuthService:
 
         user = db.query(User).filter(
             User.id == payload['id'],
-            User.deleted_at is None,
+            User.deleted_at is not None,
         ).first()
 
         # if not user:
