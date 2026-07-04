@@ -8,3 +8,10 @@ input LoginInput {
     email: String!
     password: String!
 }
+
+input UpdateProfileInput {
+    username: String
+    email: String
+    password: String
+    role: UserRole
+}

@@ -147,9 +147,9 @@ type Permission {
     download: Boolean!
     zip: Boolean!
     share: Boolean!
-    change_visibility: Boolean!
-    manage_permissions: Boolean!
-    change_owner: Boolean!
+    manage_visibility: Boolean!
+    manage_permission: Boolean!
+    manage_owner: Boolean!
     created_at: DateTime!
     updated_at: DateTime!
 }

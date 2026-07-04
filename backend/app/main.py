@@ -1,15 +1,14 @@
 from ariadne import make_executable_schema, ScalarType
 from ariadne.asgi import GraphQL
-from ariadne.asgi.handlers import GraphQLTransportWSHandler
 from broadcaster import Broadcast
 from fastapi import FastAPI, Request
 
-from app.graphql import type_defs
-from app.resolvers.types.users import user_type
+from app.graphql.schemas import type_defs
+from app.graphql.resolvers.types.users import user_type
 from models import engine, Base, db
 from services.auth import auth_service
 
-from app.resolvers.auth import query as auth_query, mutation as auth_mutation
+from app.graphql.resolvers.auth import query as auth_query, mutation as auth_mutation
 
 Base.metadata.create_all(bind=engine)
 
